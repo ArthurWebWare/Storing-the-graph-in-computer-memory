@@ -55,3 +55,8 @@ To run the project, execute the following command:
 
 ```bash
 go run main.go
+```
+## Conclusion
+
+In this laboratory work, various methods for storing and processing graphs in computer memory will be developed and tested. 
+The implementation of all tasks will allow consolidating theoretical knowledge through practice and improving programming skills.
