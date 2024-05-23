@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strconv"
 )
 
 // Graph представляет граф
@@ -35,5 +38,45 @@ func displayOutputMenu() {
 }
 
 func main() {
+	var graph Graph
+	scanner := bufio.NewScanner(os.Stdin)
 
+	for {
+		displayInitialMenu()
+		scanner.Scan()
+		choice, _ := strconv.Atoi(scanner.Text())
+
+		switch choice {
+		case 1:
+			graph.incidenceMatrix = inputIncidenceMatrix(scanner)
+			if graph.incidenceMatrix != nil {
+				activeEntity = choice
+				outputIncidenceMatrix(graph.incidenceMatrix)
+			} else {
+				secondMenuActive = false
+			}
+		case 2:
+			graph.adjacencyMatrix = inputAdjacencyMatrix(scanner)
+			if graph.adjacencyMatrix != nil {
+				activeEntity = choice
+				outputAdjacencyMatrix(graph.adjacencyMatrix)
+			} else {
+				secondMenuActive = false
+			}
+		case 3:
+			graph.adjacencyList = inputAdjacencyList(scanner)
+			if graph.adjacencyList != nil {
+				activeEntity = choice
+				outputAdjacencyList(graph.adjacencyList)
+			} else {
+				secondMenuActive = false
+			}
+		case 0:
+			fmt.Println("Exiting...")
+			return
+		default:
+			fmt.Println("Invalid choice. Please try again.")
+			secondMenuActive = false
+		}
+	}
 }
