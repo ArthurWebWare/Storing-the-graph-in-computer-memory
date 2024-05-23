@@ -76,3 +76,39 @@ func inputAdjacencyMatrix(scanner *bufio.Scanner) [][]int {
 	}
 	return matrix
 }
+
+// Функция для ввода списка смежности
+func inputAdjacencyList(scanner *bufio.Scanner) map[int][]int {
+	fmt.Println("Enter the number of vertices:")
+	scanner.Scan()
+	numVertices, err := strconv.Atoi(scanner.Text())
+	if err != nil || numVertices <= 0 {
+		fmt.Println("Invalid input. Please enter a valid number of vertices.")
+		return nil
+	}
+	adjacencyList := make(map[int][]int)
+	fmt.Println("Enter the adjacency list (vertex: neighbors):")
+	for i := 0; i < numVertices; i++ {
+		scanner.Scan()
+		input := strings.Split(scanner.Text(), ":")
+		if len(input) != 2 {
+			fmt.Println("Invalid input. Please enter data in the format 'vertex: neighbors'.")
+			return nil
+		}
+		vertex, err1 := strconv.Atoi(strings.TrimSpace(input[0]))
+		neighbors := strings.Fields(input[1])
+		if err1 != nil {
+			fmt.Println("Invalid input. Please enter a valid vertex number.")
+			return nil
+		}
+		for _, neighbor := range neighbors {
+			n, err2 := strconv.Atoi(neighbor)
+			if err2 != nil {
+				fmt.Println("Invalid input. Please enter valid numbers for neighbors.")
+				return nil
+			}
+			adjacencyList[vertex] = append(adjacencyList[vertex], n)
+		}
+	}
+	return adjacencyList
+}
