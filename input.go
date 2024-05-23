@@ -44,3 +44,35 @@ func inputIncidenceMatrix(scanner *bufio.Scanner) [][]int {
 	}
 	return matrix
 }
+
+// Функция для ввода матрицы смежности
+func inputAdjacencyMatrix(scanner *bufio.Scanner) [][]int {
+	fmt.Println("Enter the number of vertices:")
+	scanner.Scan()
+	numVertices, err := strconv.Atoi(scanner.Text())
+	if err != nil || numVertices <= 0 {
+		fmt.Println("Invalid input. Please enter a valid number of vertices.")
+		return nil
+	}
+	matrix := make([][]int, numVertices)
+	for i := range matrix {
+		matrix[i] = make([]int, numVertices)
+	}
+	fmt.Println("Enter the adjacency matrix:")
+	for i := 0; i < numVertices; i++ {
+		scanner.Scan()
+		row := strings.Split(scanner.Text(), " ")
+		if len(row) != numVertices {
+			fmt.Println("Invalid input. Please enter the correct number of vertices for each row.")
+			return nil
+		}
+		for j := 0; j < numVertices; j++ {
+			matrix[i][j], err = strconv.Atoi(row[j])
+			if err != nil {
+				fmt.Println("Invalid input. Please enter valid numbers for the adjacency matrix.")
+				return nil
+			}
+		}
+	}
+	return matrix
+}
